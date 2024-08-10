@@ -30,61 +30,58 @@ class _SpalshScreenState extends State<SpalshScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: Center(
-            child: TweenAnimationBuilder(
-          tween: Tween<double>(begin: 0, end: 1),
-          duration: const Duration(milliseconds: 1000),
-          builder: (context, _val, child) {
-            return Opacity(
-                opacity: _val,
-                child: Padding(
-                  padding: EdgeInsets.only(top: _val * 100),
-                  child: Text.rich(
-                      style: AppStyle.poppinsStyle(
-                        size: AppDimensions.fontSizeMaxLarge,
-                        letterSpacing: 1,
-                        fontWeight: FontWeight.w900,
-                      ),
-                      TextSpan(
-                          text: 'Biz',
-                          style: AppStyle.poppinsStyle(),
-                          children: [
-                            TextSpan(
-                                text: 'Grit',
-                                style: AppStyle.poppinsStyle(
-                                    color: AppColors.blue))
-                          ])),
-                ));
-          },
-          // child: Text.rich(
-          //     style: AppStyle.poppinsStyle(
-          //       size: AppDimensions.fontSizeMaxLarge,
-          //       letterSpacing: 1,
-          //       fontWeight: FontWeight.w900,
-          //     ),
-          //     TextSpan(
-          //         text: 'Biz',
-          //         style: AppStyle.poppinsStyle(),
-          //         children: [
-          //           TextSpan(
-          //               text: 'Grit',
-          //               style:
-          //                   AppStyle.poppinsStyle(color: AppColors.blue))
-          //         ]))
-        )),
-        bottomNavigationBar: SizedBox(
-            height: AppDimensions.h(context) * .05,
-            child: Column(
-              children: [
-                Text(
-                  'Designed & developed by',
-                  style: AppStyle.poppinsStyle(fontWeight: FontWeight.w100),
-                ),
-                Text(
-                  'ZMAC',
-                  style: AppStyle.poppinsStyle(letterSpacing: 1),
-                )
-              ],
-            )));
+      backgroundColor: AppColors.bgColor,
+      body: Center(
+          child: TweenAnimationBuilder(
+        tween: Tween<double>(begin: 0, end: 1),
+        duration: const Duration(milliseconds: 1000),
+        builder: (context, _val, child) {
+          return Opacity(
+              opacity: _val,
+              child: Padding(
+                padding: EdgeInsets.only(top: _val * 100),
+                child: Text.rich(
+                    style: AppStyle.rationaleStyle(
+                      size: AppDimensions.fontSizeMaxLarge,
+                      letterSpacing: 1,
+                      fontWeight: FontWeight.w900,
+                    ),
+                    TextSpan(
+                        text: 'Biz',
+                        style: AppStyle.rationaleStyle(
+                          color: AppColors.white,
+                          enableShadow: true,
+                        ),
+                        children: [
+                          TextSpan(
+                              text: 'Grit',
+                              style: AppStyle.rationaleStyle(
+                                  enableShadow: true,
+                                  color: AppColors.appPrimaryGreen))
+                        ])),
+              ));
+        },
+      )),
+      // bottomNavigationBar: SizedBox(
+      //     height: AppDimensions.h(context) * .05,
+      //     child: Column(
+      //       children: [
+      //         Text(
+      //           'Designed & developed by',
+      //           style: AppStyle.poppinsStyle(
+      //               color: AppColors.white,
+      //               enableShadow: true,
+      //               fontWeight: FontWeight.w100),
+      //         ),
+      //         Text(
+      //           'ZMAC',
+      //           style: AppStyle.poppinsStyle(
+      //               color: AppColors.white,
+      //               enableShadow: true,
+      //               letterSpacing: 1),
+      //         )
+      //       ],
+      // ))
+    );
   }
 }

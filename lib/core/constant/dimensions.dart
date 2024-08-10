@@ -9,13 +9,13 @@ class AppDimensions {
     return MediaQuery.of(context).size.height;
   }
 
-  static const double fontSizeExtraSmall = 10.0;
-  static const double fontSizeSmall = 12.0;
-  static const double fontSizeDefault = 14.0;
-  static const double fontSizeLarge = 16.0;
-  static const double fontSizeExtraLarge = 24.0;
-  static const double fontSizeOverLarge = 28.0;
-  static const double fontSizeMaxLarge = 40.0;
+  static const double fontSizeExtraSmall = 14.0;
+  static const double fontSizeSmall = 16.0;
+  static const double fontSizeDefault = 18.0;
+  static const double fontSizeLarge = 20.0;
+  static const double fontSizeExtraLarge = 28.0;
+  static const double fontSizeOverLarge = 34.0;
+  static const double fontSizeMaxLarge = 45.0;
 
   static const double paddingSizeExtraSmall = 5.0;
   static const double paddingSizeSmall = 10.0;

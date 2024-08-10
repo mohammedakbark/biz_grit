@@ -1,5 +1,3 @@
-import 'dart:ui';
-
 import 'package:briz_grit/core/constant/color.dart';
 import 'package:briz_grit/core/constant/dimensions.dart';
 import 'package:briz_grit/core/constant/style.dart';
@@ -25,7 +23,7 @@ class HomeScreen extends StatelessWidget {
         title: Text(
           '',
           style: AppStyle.robotoStyle(
-              color: AppColors.white,
+              color: AppColors.black,
               letterSpacing: 2,
               fontWeight: FontWeight.w600,
               size: AppDimensions.fontSizeExtraLarge),
@@ -33,6 +31,7 @@ class HomeScreen extends StatelessWidget {
       ),
       backgroundColor: AppColors.bgColor,
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           SizedBox(
             width: AppDimensions.w(context),
@@ -46,14 +45,14 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.only(
                           bottomLeft: Radius.elliptical(100, 50),
                           bottomRight: Radius.elliptical(100, 50)),
-                      color: AppColors.blue),
+                      color: AppColors.appPrimaryGreen),
                   child: SafeArea(
                     child: ScreenMargin(
                       child: Text(
-                        'Daily based\nSales & Margin',
-                        style: AppStyle.robotoStyle(
+                        'Daily based Sales &\nMargin',
+                        style: AppStyle.rationaleStyle(
                             letterSpacing: 1,
-                            size: AppDimensions.fontSizeOverLarge,
+                            size: AppDimensions.fontSizeExtraLarge,
                             fontWeight: FontWeight.w900,
                             color: AppColors.white),
                       ),
@@ -72,9 +71,10 @@ class HomeScreen extends StatelessWidget {
                     decoration: BoxDecoration(
                         boxShadow: [
                           BoxShadow(
-                              blurRadius: 8,
-                              offset: const Offset(5, 10),
-                              color: AppColors.balck.withOpacity(.1))
+                              blurRadius: 20,
+                              blurStyle: BlurStyle.normal,
+                              offset: const Offset(2.5, 5),
+                              color: AppColors.appPrimaryGreen.withOpacity(.5))
                         ],
                         borderRadius: const BorderRadius.all(Radius.circular(
                             AppDimensions.radiusSizeExtraLarge)),
@@ -85,16 +85,16 @@ class HomeScreen extends StatelessWidget {
                       children: [
                         Row(
                           children: [
-                            Spacer(),
+                            const Spacer(),
                             Text(
                               'Reset',
                               style: AppStyle.robotoStyle(
                                   color: AppColors.lightRed,
-                                  size: AppDimensions.fontSizeDefault,
+                                  size: AppDimensions.fontSizeSmall,
                                   fontWeight: FontWeight.w600),
                             ),
                             customeSpacer(context, width: .02),
-                            Icon(
+                            const Icon(
                               color: AppColors.lightRed,
                               SolarIconsOutline.refreshCircle,
                             )
@@ -103,51 +103,60 @@ class HomeScreen extends StatelessWidget {
                         Center(
                           child: Text(
                             'TODAY',
-                            style: AppStyle.poppinsStyle(
-                                color: AppColors.bgColor,
+                            style: AppStyle.rationaleStyle(
+                                color: AppColors.appPrimaryGreen,
                                 size: AppDimensions.fontSizeMaxLarge,
                                 fontWeight: FontWeight.w900),
                           ),
                         ),
                         const Divider(
-                          color: AppColors.bgColor,
+                          color: AppColors.appPrimaryGreen,
                         ),
-                        Center(
+                        customeSpacer(context, height: .01),
+                        SizedBox(
+                          width: AppDimensions.w(context),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
-                            crossAxisAlignment: CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              customeSpacer(context, height: .02),
                               Text(
                                 'Margin',
-                                style: AppStyle.poppinsStyle(
-                                    color: AppColors.green.withOpacity(.5),
+                                style: AppStyle.rationaleStyle(
+                                    color: AppColors.green.withOpacity(.3),
                                     size: AppDimensions.fontSizeOverLarge,
                                     fontWeight: FontWeight.w900),
                               ),
                               Text(
-                                '₹ 98489.00',
-                                style: AppStyle.poppinsStyle(
+                                '₹ 98489.0',
+                                style: AppStyle.rationaleStyle(
                                     enableShadow: true,
                                     color: AppColors.green,
-                                    size: AppDimensions.fontSizeMaxLarge,
-                                    fontWeight: FontWeight.w900),
+                                    size: AppDimensions.fontSizeOverLarge,
+                                    fontWeight: FontWeight.bold),
                               ),
-                              customeSpacer(context, height: .03),
+                            ],
+                          ),
+                        ),
+                        SizedBox(
+                          width: AppDimensions.w(context),
+                          child: Column(
+                            mainAxisSize: MainAxisSize.max,
+                            crossAxisAlignment: CrossAxisAlignment.end,
+                            children: [
                               Text(
                                 'Sales',
-                                style: AppStyle.poppinsStyle(
-                                    color: AppColors.blue.withOpacity(.5),
-                                    size: AppDimensions.fontSizeLarge,
+                                style: AppStyle.rationaleStyle(
+                                    color: AppColors.lightRed.withOpacity(.5),
+                                    size: AppDimensions.fontSizeOverLarge,
                                     fontWeight: FontWeight.w900),
                               ),
                               Text(
-                                '₹ 10773668.00',
-                                style: AppStyle.poppinsStyle(
+                                '₹ 10773668.0',
+                                style: AppStyle.rationaleStyle(
                                     enableShadow: true,
-                                    color: AppColors.blue,
-                                    size: AppDimensions.fontSizeLarge,
-                                    fontWeight: FontWeight.w800),
+                                    color: AppColors.red,
+                                    size: AppDimensions.fontSizeOverLarge,
+                                    fontWeight: FontWeight.bold),
                               )
                             ],
                           ),
@@ -158,8 +167,62 @@ class HomeScreen extends StatelessWidget {
                 ),
               ],
             ),
+          ),
+          ScreenMargin(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                customeSpacer(context, height: .02),
+                Text(
+                  'History',
+                  style: AppStyle.rationaleStyle(
+                      size: AppDimensions.fontSizeExtraLarge,
+                      fontWeight: FontWeight.bold),
+                ),
+                customeSpacer(context, height: .02),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Date',
+                      style: AppStyle.rationaleStyle(
+                          size: AppDimensions.fontSizeLarge,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Sales(₹)',
+                      style: AppStyle.rationaleStyle(
+                          size: AppDimensions.fontSizeLarge,
+                          fontWeight: FontWeight.w600),
+                    ),
+                    Text(
+                      'Margin(₹)',
+                      style: AppStyle.rationaleStyle(
+                          size: AppDimensions.fontSizeLarge,
+                          fontWeight: FontWeight.w600),
+                    ),
+                  ],
+                )
+              ],
+            ),
           )
         ],
+      ),
+      bottomNavigationBar: SizedBox(
+        height: AppDimensions.h(context) * .08,
+        child: BottomNavigationBar(
+            selectedItemColor: AppColors.white,
+            unselectedItemColor: AppColors.bgColor,
+            backgroundColor: AppColors.appPrimaryGreen,
+            items: const [
+              BottomNavigationBarItem(
+                  label: '', icon: Icon(SolarIconsOutline.home)),
+              BottomNavigationBarItem(
+                  label: '', icon: Icon(SolarIconsOutline.penNewSquare)),
+              BottomNavigationBarItem(
+                  label: '',
+                  icon: Icon(SolarIconsOutline.calculatorMinimalistic))
+            ]),
       ),
     );
   }

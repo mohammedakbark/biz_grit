@@ -3,22 +3,22 @@ import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class AppStyle {
-  static TextStyle poppinsStyle(
+  static TextStyle rationaleStyle(
       {double? size,
       bool? enableShadow,
       Color? shadowColor,
       FontWeight? fontWeight,
       double? letterSpacing,
       Color? color}) {
-    return GoogleFonts.poppins(
+    return GoogleFonts.rationale(
         shadows: [
           enableShadow != null
               ? Shadow(
                   offset: const Offset(2, 3),
-                  color: shadowColor ?? AppColors.balck.withOpacity(.1))
+                  color: shadowColor ?? AppColors.black.withOpacity(.1))
               : const Shadow()
         ],
-        color: color ?? AppColors.balck,
+        color: color ?? AppColors.white,
         fontWeight: fontWeight,
         fontSize: size,
         letterSpacing: letterSpacing);
@@ -36,14 +36,12 @@ class AppStyle {
           enableShadow != null
               ? Shadow(
                   offset: const Offset(2, 3),
-                  color: shadowColor ?? AppColors.balck.withOpacity(.1))
+                  color: shadowColor ?? AppColors.white.withOpacity(.1))
               : const Shadow()
         ],
-        color: color ?? AppColors.balck,
+        color: color ?? AppColors.white,
         fontWeight: fontWeight,
         fontSize: size,
         letterSpacing: letterSpacing);
   }
-
- 
 }
