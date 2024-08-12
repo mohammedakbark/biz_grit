@@ -2,6 +2,7 @@ import 'package:briz_grit/core/constant/color.dart';
 import 'package:briz_grit/core/constant/dimensions.dart';
 import 'package:briz_grit/core/constant/style.dart';
 import 'package:briz_grit/screens/home/home_screen.dart';
+import 'package:briz_grit/screens/navigation_screen.dart';
 import 'package:briz_grit/widgets/route.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
@@ -23,7 +24,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
   void _goToHome() {
     Future.delayed(const Duration(seconds: 4)).then((value) {
       Navigator.of(context).pushAndRemoveUntil(
-          createRoute(const HomeScreen()), (route) => false);
+          createRoute( NavigationScreen()), (route) => false);
     });
   }
 
@@ -62,26 +63,26 @@ class _SpalshScreenState extends State<SpalshScreen> {
               ));
         },
       )),
-      // bottomNavigationBar: SizedBox(
-      //     height: AppDimensions.h(context) * .05,
-      //     child: Column(
-      //       children: [
-      //         Text(
-      //           'Designed & developed by',
-      //           style: AppStyle.poppinsStyle(
-      //               color: AppColors.white,
-      //               enableShadow: true,
-      //               fontWeight: FontWeight.w100),
-      //         ),
-      //         Text(
-      //           'ZMAC',
-      //           style: AppStyle.poppinsStyle(
-      //               color: AppColors.white,
-      //               enableShadow: true,
-      //               letterSpacing: 1),
-      //         )
-      //       ],
-      // ))
+      bottomNavigationBar: SizedBox(
+          height: AppDimensions.h(context) * .05,
+          child: Column(
+            children: [
+              Text(
+                'Designed & developed by',
+                style: AppStyle.robotoStyle(
+                    color: AppColors.white,
+                    enableShadow: true,
+                    fontWeight: FontWeight.w100),
+              ),
+              Text(
+                'ZMAC',
+                style: AppStyle.robotoStyle(
+                    color: AppColors.white,
+                    enableShadow: true,
+                    letterSpacing: 1),
+              )
+            ],
+      ))
     );
   }
 }

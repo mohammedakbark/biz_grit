@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "626930730379",
+    "project_id": "freelance-db-2e7cf",
+    "storage_bucket": "freelance-db-2e7cf.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:626930730379:android:592e94623e9c7f1982db8e",
+        "android_client_info": {
+          "package_name": "com.example.briz_grit"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDd2V36nWw5kwLXq_Mx6GlP74i4eb083IA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
