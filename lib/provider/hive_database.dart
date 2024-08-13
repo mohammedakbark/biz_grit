@@ -150,15 +150,17 @@ class HiveDatabase with ChangeNotifier {
     log(_historyModel!.date);
   }
 
-  cleanEntryBx() async {
+  Future cleanEntryBx() async {
     final box = await Hive.openBox<SingleEntryModel>(ConstString.dailyEntryDb);
     box.clear();
   }
 
-  resetLastDayData() async {
-    _totalSales = 0;
-    _totlaMargin = 0;
-    await cleanEntryBx();
+  Future resetLastDayData() async {
+    await cleanEntryBx().then((value) {
+      _totalSales = 0;
+      _totlaMargin = 0;
+      notifyListeners();
+    });
     notifyListeners();
   }
 

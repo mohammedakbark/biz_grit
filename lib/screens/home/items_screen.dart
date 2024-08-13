@@ -46,7 +46,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                         itemCount: itemList.length,
                         itemBuilder: (context, index) =>
                             SwipeableTile.swipeToTriggerCard(
-                          verticalPadding: AppDimensions.paddingSizeDefault,
+                          verticalPadding: AppDimensions.paddingSizeExtraSmall,
                           shadow: appShadow,
                           horizontalPadding: AppDimensions.paddingSizeDefault,
                           onSwiped: (direction) {

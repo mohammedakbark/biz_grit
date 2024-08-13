@@ -78,7 +78,7 @@ class HomeScreen extends StatelessWidget {
                               builder: (context, controller, _) {
                             return InkWell(
                               onTap: () async {
-                                await controller.resetLastDayData();
+                                controller.resetLastDayData();
                               },
                               child: const Icon(
                                 color: AppColors.lightRed,
@@ -195,6 +195,7 @@ class HomeScreen extends StatelessWidget {
                 ),
                 customeSpacer(context, height: .02),
                 const HistoryHead(),
+                customeSpacer(context, height: .03),
                 const HistoryList()
               ],
             ),
@@ -222,10 +223,10 @@ class HistoryList extends StatelessWidget {
             final historyData = snapshot.data;
             return historyData!.isEmpty
                 ? emptyWidget('No History')
-                : ListView.builder(
+                : ListView.separated(
                     itemCount: historyData.length,
-                    // separatorBuilder: (context,index) =>
-                    //     customeSpacer(context, height: .01),
+                    separatorBuilder: (context, index) =>
+                        customeSpacer(context, height: .01),
                     itemBuilder: (context, index) => Container(
                         padding: const EdgeInsets.all(
                             AppDimensions.paddingSizeLarge),
