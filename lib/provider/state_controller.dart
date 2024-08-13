@@ -1,5 +1,4 @@
-import 'package:briz_grit/core/constant/color.dart';
-import 'package:briz_grit/core/constant/style.dart';
+import 'package:briz_grit/core/model/item_model.dart';
 import 'package:flutter/material.dart';
 
 class StateController with ChangeNotifier {
@@ -11,7 +10,7 @@ class StateController with ChangeNotifier {
   }
 
   bool enableSearchList = false;
-  checkSearchControllerNotEmpty(String value, List<String> data) async {
+  checkSearchControllerNotEmpty(String value, List<ItemModel> data) async {
     if (value.isEmpty) {
       enableSearchList = false;
       notifyListeners();
@@ -23,12 +22,13 @@ class StateController with ChangeNotifier {
     }
   }
 
-  List<String> searchResult = [];
-  _checkFromTheList(String searchKey, List<String> data) {
-    final search = List<String>.from(data);
+  List<ItemModel> searchResult = [];
+  _checkFromTheList(String searchKey, List<ItemModel> data) {
+    final search = List<ItemModel>.from(data);
+
     searchResult = search
         .where((element) =>
-            element.toLowerCase().contains(searchKey.toLowerCase()))
+            element.title.toLowerCase().contains(searchKey.toLowerCase()))
         .toList();
   }
 
@@ -37,7 +37,8 @@ class StateController with ChangeNotifier {
     notifyListeners();
   }
 
- static  bool checkTheValueContainInDatabase(String controller, List<String> data) {
+  static bool checkTheValueContainInDatabase(
+      ItemModel controller, List<ItemModel> data) {
     if (data.contains(controller)) {
       return true;
     } else {

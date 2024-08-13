@@ -1,6 +1,9 @@
 import 'package:briz_grit/core/constant/color.dart';
 import 'package:briz_grit/core/constant/dimensions.dart';
+import 'package:briz_grit/core/constant/string.dart';
 import 'package:briz_grit/core/constant/style.dart';
+import 'package:briz_grit/provider/auth_controller.dart';
+import 'package:briz_grit/provider/hive_database.dart';
 import 'package:briz_grit/provider/state_controller.dart';
 import 'package:briz_grit/screens/home/home_screen.dart';
 import 'package:briz_grit/screens/home/items_screen.dart';
@@ -16,74 +19,77 @@ import 'package:solar_icons/solar_icons.dart';
 
 class NavigationScreen extends StatelessWidget {
   NavigationScreen({super.key});
+
   List<Widget> pages = [const HomeScreen(), ItemsScreen(), MarginCalcScreen()];
+
   @override
   Widget build(BuildContext context) {
-    return Consumer<StateController>(builder: (context, controller, _) {
-      return Scaffold(
-        
-          floatingActionButtonLocation: controller.currentPage == 1
-              ? null
-              : FloatingActionButtonLocation.centerFloat,
-          resizeToAvoidBottomInset: false,
-          floatingActionButton: controller.currentPage == 1
-              ? FloatingActionButton(
-                  backgroundColor: AppColors.appPrimaryGreen,
-                  onPressed: () {
-                    Navigator.of(context).push(createRoute(AddItemScreen()));
-                  },
-                  child: const Icon(color: AppColors.white, CupertinoIcons.add),
-                )
-              : controller.currentPage == 2
-                  ? floatingActionButton()
-                  : SizedBox(),
-          body: pages[controller.currentPage],
-          appBar: AppBar(
-            scrolledUnderElevation: 0,
-            systemOverlayStyle: SystemUiOverlayStyle.dark,
-            elevation: 0,
-            centerTitle: true,
-            title: Text(
-              controller.currentPage == 0
-                  ? ''
-                  : controller.currentPage == 1
-                      ? 'Items'
-                      : controller.currentPage == 2
-                          ? 'Margin Calc.'
-                          : '',
-              style: AppStyle.rationaleStyle(
-                  color: AppColors.white,
-                  fontWeight: FontWeight.w600,
-                  size: AppDimensions.fontSizeExtraLarge),
-            ),
-            leading: SizedBox(),
-            actions: [
-              controller.currentPage == 0
-                  ? Padding(
-                      padding: const EdgeInsets.only(
-                          right: AppDimensions.paddingSizeSmall),
-                      child: Text(
-                        'shafeeq',
-                        style: AppStyle.rationaleStyle(
-                            color: AppColors.white,
-                            fontWeight: FontWeight.w100,
-                            size: AppDimensions.fontSizeDefault),
-                      ),
-                    )
-                  : const SizedBox(),
-            ],
+    final controller = Provider.of<StateController>(context);
+
+    return Scaffold(
+        floatingActionButtonLocation: controller.currentPage == 1
+            ? null
+            : FloatingActionButtonLocation.centerFloat,
+        resizeToAvoidBottomInset: false,
+        floatingActionButton: controller.currentPage == 1
+            ? FloatingActionButton(
+                backgroundColor: AppColors.appPrimaryGreen,
+                onPressed: () {
+                  Navigator.of(context).push(createRoute(AddItemScreen()));
+                },
+                child: const Icon(color: AppColors.white, CupertinoIcons.add),
+              )
+            : controller.currentPage == 2
+                ? floatingActionButton()
+                : const SizedBox(),
+        body: pages[controller.currentPage],
+        appBar: AppBar(
+          scrolledUnderElevation: 0,
+          systemOverlayStyle: SystemUiOverlayStyle.dark,
+          elevation: 0,
+          centerTitle: true,
+          title: Text(
+            controller.currentPage == 0
+                ? ''
+                : controller.currentPage == 1
+                    ? 'Items'
+                    : controller.currentPage == 2
+                        ? 'Margin Calc.'
+                        : '',
+            style: AppStyle.rationaleStyle(
+                color: AppColors.white,
+                fontWeight: FontWeight.w600,
+                size: AppDimensions.fontSizeExtraLarge),
           ),
-          backgroundColor: AppColors.bgColor,
-          bottomNavigationBar: bottomNavigation(
-              context, controller.currentPage, controller.changePage));
-    });
+          leading: const SizedBox(),
+          actions: [
+            controller.currentPage == 0
+                ? Padding(
+                    padding: const EdgeInsets.only(
+                        right: AppDimensions.paddingSizeSmall),
+                    child: Text(
+                      Provider.of<AuthController>(context, listen: false)
+                              .userData![ConstString.userName] ??
+                          '',
+                      style: AppStyle.rationaleStyle(
+                          color: AppColors.white,
+                          fontWeight: FontWeight.w100,
+                          size: AppDimensions.fontSizeDefault),
+                    ),
+                  )
+                : const SizedBox(),
+          ],
+        ),
+        backgroundColor: AppColors.bgColor,
+        bottomNavigationBar: bottomNavigation(
+            context, controller.currentPage, controller.changePage));
   }
 
   Widget floatingActionButton() {
     return ScreenMargin(
       child: ScreenMargin(
         child: Container(
-          padding: EdgeInsets.symmetric(
+          padding: const EdgeInsets.symmetric(
               horizontal: AppDimensions.paddingSizeDefault,
               vertical: AppDimensions.paddingSizeExtraLarge),
           decoration: BoxDecoration(
@@ -98,13 +104,15 @@ class NavigationScreen extends StatelessWidget {
                 'Total Margin(₹)',
                 style: AppStyle.rationaleStyle(enableShadow: true),
               ),
-              Text(
-                '12553',
-                style: AppStyle.rationaleStyle(
-                    enableShadow: true,
-                    fontWeight: FontWeight.bold,
-                    size: AppDimensions.fontSizeExtraLarge),
-              )
+              Consumer<HiveDatabase>(builder: (context, hiveController, _) {
+                return Text(
+                  hiveController.totalMargin.toString(),
+                  style: AppStyle.rationaleStyle(
+                      enableShadow: true,
+                      fontWeight: FontWeight.bold,
+                      size: AppDimensions.fontSizeExtraLarge),
+                );
+              })
             ],
           ),
         ),

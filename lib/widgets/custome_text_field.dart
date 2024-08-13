@@ -3,25 +3,26 @@ import 'package:briz_grit/core/constant/dimensions.dart';
 import 'package:briz_grit/core/constant/style.dart';
 import 'package:flutter/material.dart';
 
-Widget cutomeTextField(
+Widget cutomTextField(
   String hintText,
   String lebel,
   TextEditingController? controller,
   String? Function(String?)? validator, {
-    void Function()? onTap,
-    void Function(PointerDownEvent)? onTapOutsid,void Function(String)? onChanged,
+  void Function()? onTap,
+  void Function(PointerDownEvent)? onTapOutsid,
+  void Function(String)? onChanged,
   TextInputType? keyboardType,
   int? maxLenght,
 }) {
   return TextFormField(
     onTap: onTap,
-    onTapOutside:onTapOutsid,
-    onChanged:onChanged ,
+    onTapOutside: onTapOutsid,
+    onChanged: onChanged,
     textCapitalization: TextCapitalization.sentences,
     keyboardType: keyboardType,
     maxLength: maxLenght,
     style: AppStyle.rationaleStyle(),
-    autovalidateMode: AutovalidateMode.onUserInteraction,
+    // autovalidateMode: AutovalidateMode.,
     controller: controller,
     validator: validator,
     cursorColor: AppColors.appPrimaryGreen,

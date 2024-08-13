@@ -8,6 +8,7 @@ Widget customButton(
   final String title,
   void Function()? onPressed,
   Color bgColor, {
+  bool? disableShadow,
   Color? textColor,
 }) {
   return InkWell(
@@ -22,7 +23,7 @@ Widget customButton(
       alignment: Alignment.center,
       padding: const EdgeInsets.all(AppDimensions.paddingSizeSmall),
       decoration: BoxDecoration(
-          boxShadow: [appShadow],
+          boxShadow: disableShadow != null ? null : [appShadow],
           color: bgColor,
           borderRadius: BorderRadius.circular(AppDimensions.radiusSizeLarge)),
       child: Text(

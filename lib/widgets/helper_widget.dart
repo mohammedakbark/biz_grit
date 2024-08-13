@@ -27,6 +27,28 @@ showCustomeSnackBar(BuildContext context, String message, bool isError) {
       )));
 }
 
-succsessSnackBar() {
-  
+succsessSnackBar() {}
+
+const progressIndicator = Center(
+  child: CircularProgressIndicator(
+    color: AppColors.appPrimaryGreen,
+  ),
+);
+
+Widget emptyWidget(String title) {
+  return Center(
+    child: Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: [
+        Icon(
+          Icons.smart_toy_outlined,
+          color: AppColors.white,
+        ),
+        Text(
+          title,
+          style: AppStyle.robotoStyle(fontWeight: FontWeight.bold),
+        ),
+      ],
+    ),
+  );
 }
