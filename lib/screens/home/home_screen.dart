@@ -5,6 +5,7 @@ import 'package:briz_grit/provider/hive_database.dart';
 import 'package:briz_grit/widgets/helper_widget.dart';
 import 'package:briz_grit/widgets/screen_margin.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 
 import 'package:provider/provider.dart';
 import 'package:solar_icons/solar_icons.dart';
@@ -17,14 +18,17 @@ class HomeScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        SizedBox(
+        Container(
+          constraints: BoxConstraints(),
           width: AppDimensions.w(context),
-          height: AppDimensions.w(context) * 1,
+          height: AppDimensions.h(context) * .45,
           child: Stack(
+            fit: StackFit.loose,
             children: [
               Container(
+                constraints: BoxConstraints(),
                 width: AppDimensions.w(context),
-                height: AppDimensions.w(context) * .5,
+                height: AppDimensions.h(context) * .2,
                 decoration: const BoxDecoration(
                     borderRadius: BorderRadius.only(
                         bottomLeft: Radius.elliptical(100, 50),
@@ -44,14 +48,15 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
               Positioned(
-                left: AppDimensions.paddingSizeLarge,
-                right: AppDimensions.paddingSizeLarge,
+                left: AppDimensions.w(context) * .04,
+                right: AppDimensions.w(context) * .04,
                 bottom: 0,
                 child: Container(
                   constraints: const BoxConstraints(),
                   padding:
                       const EdgeInsets.all(AppDimensions.paddingSizeExtraLarge),
-                  // height: AppDimensions.w(context) * .8,
+                  // height: AppDimensions.h(context) * .36,
+                  width: AppDimensions.w(context),
                   decoration: BoxDecoration(
                       boxShadow: [appShadow],
                       borderRadius: const BorderRadius.all(

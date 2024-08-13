@@ -10,6 +10,7 @@ import 'package:briz_grit/screens/home/home_screen.dart';
 import 'package:briz_grit/screens/splash_screen.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:hive_flutter/adapters.dart';
 import 'package:provider/provider.dart';
 
@@ -28,7 +29,11 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  runApp(const MyApp());
+ SystemChrome.setPreferredOrientations([
+        DeviceOrientation.portraitUp,
+        DeviceOrientation.portraitDown,
+    
+      ]);  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
@@ -48,6 +53,7 @@ class MyApp extends StatelessWidget {
           debugShowCheckedModeBanner: false,
           title: 'Biz Grit',
           theme: ThemeData(
+           
             scaffoldBackgroundColor: AppColors.bgColor,
             appBarTheme:
                 const AppBarTheme(backgroundColor: AppColors.appPrimaryGreen),
