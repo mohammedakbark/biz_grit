@@ -15,9 +15,8 @@ Widget deveView(BuildContext context) => SizedBox(
               fontWeight: FontWeight.w100),
         ),
         Text(
-          'ZMAC Solutions',
-          style: AppStyle.robotoStyle(
-              color: AppColors.white, enableShadow: true, letterSpacing: 1),
+          'MECTA',
+          style: AppStyle.robotoStyle(color: AppColors.white, letterSpacing: 1),
         )
       ],
     ));

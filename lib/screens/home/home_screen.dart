@@ -122,6 +122,8 @@ class HomeScreen extends StatelessWidget {
                                   );
                                 }
                                 return Column(
+                                  mainAxisSize: MainAxisSize.max,
+                                  mainAxisAlignment: MainAxisAlignment.center,
                                   children: [
                                     customeSpacer(context, height: .01),
                                     SizedBox(

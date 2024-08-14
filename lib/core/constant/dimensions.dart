@@ -13,19 +13,19 @@ class AppDimensions {
   static double fontSizeExtraSmall(
     BuildContext context,
   ) =>
-      responsiveTextSize(context, .02); //14.0;
+      responsiveTextSize(context, .006); //14.0;
   static double fontSizeSmall(BuildContext context) =>
-      responsiveTextSize(context, .04); //16.0;
+      responsiveTextSize(context, .007); //16.0;
   static double fontSizeDefault(BuildContext context) =>
-      responsiveTextSize(context, .05); // 18.0;
+      responsiveTextSize(context, .008); // 18.0;
   static double fontSizeLarge(BuildContext context) =>
-      responsiveTextSize(context, .06); //20.0;
+      responsiveTextSize(context, .009); //20.0;
   static double fontSizeExtraLarge(BuildContext context) =>
-      responsiveTextSize(context, .065); //28.0;
+      responsiveTextSize(context, .01); //28.0;
   static double fontSizeOverLarge(BuildContext context) =>
-      responsiveTextSize(context, .08); // 34.0;
+      responsiveTextSize(context, .012); // 34.0;
   static double fontSizeMaxLarge(BuildContext context) =>
-      responsiveTextSize(context, .14); //45.0;
+      responsiveTextSize(context, .03); //45.0;
 
   static const double paddingSizeExtraSmall = 5.0;
   static const double paddingSizeSmall = 10.0;
