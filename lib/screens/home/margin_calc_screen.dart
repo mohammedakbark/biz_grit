@@ -236,7 +236,8 @@ class EntryList extends StatelessWidget {
                                         child: Text(
                                           entryList[index].title,
                                           style: AppStyle.rationaleStyle(
-                                            size: AppDimensions.fontSizeDefault,
+                                            size: AppDimensions.fontSizeDefault(
+                                                context),
                                             color: AppColors.bgColor,
                                           ),
                                         ),
@@ -244,7 +245,8 @@ class EntryList extends StatelessWidget {
                                       Text(
                                         entryList[index].quantity,
                                         style: AppStyle.rationaleStyle(
-                                          size: AppDimensions.fontSizeDefault,
+                                          size: AppDimensions.fontSizeDefault(
+                                              context),
                                           color: AppColors.bgColor,
                                         ),
                                       ),
@@ -256,7 +258,8 @@ class EntryList extends StatelessWidget {
                                             '${double.parse(entryList[index].margin)}',
                                             style: AppStyle.rationaleStyle(
                                               size:
-                                                  AppDimensions.fontSizeDefault,
+                                                  AppDimensions.fontSizeDefault(
+                                                      context),
                                               color: AppColors.appPrimaryGreen,
                                             ),
                                           ),
@@ -296,17 +299,20 @@ class EntryHead extends StatelessWidget {
         Text(
           'Item              ',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
         Text(
           'Quantity',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
         Text(
           'Margin(₹)',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
       ],
     );

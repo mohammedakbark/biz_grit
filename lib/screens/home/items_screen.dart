@@ -125,7 +125,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                 child: Text(
                                   'Update',
                                   style: AppStyle.rationaleStyle(
-                                      size: AppDimensions.fontSizeExtraLarge,
+                                      size: AppDimensions.fontSizeExtraLarge(context),
                                       fontWeight: FontWeight.w600),
                                 ),
                               );
@@ -156,7 +156,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                         child: Text(
                                           itemList[index].title,
                                           style: AppStyle.rationaleStyle(
-                                            size: AppDimensions.fontSizeDefault,
+                                            size: AppDimensions.fontSizeDefault(context),
                                             color: AppColors.bgColor,
                                           ),
                                         ),
@@ -164,14 +164,14 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                       Text(
                                         itemList[index].retailRate,
                                         style: AppStyle.rationaleStyle(
-                                          size: AppDimensions.fontSizeDefault,
+                                          size: AppDimensions.fontSizeDefault(context),
                                           color: AppColors.bgColor,
                                         ),
                                       ),
                                       Text(
                                         itemList[index].wholesaleRate,
                                         style: AppStyle.rationaleStyle(
-                                          size: AppDimensions.fontSizeDefault,
+                                          size: AppDimensions.fontSizeDefault(context),
                                           color: AppColors.bgColor,
                                         ),
                                       ),
@@ -188,7 +188,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                       child: Text.rich(TextSpan(
                                         text: 'Margin  ',
                                         style: AppStyle.rationaleStyle(
-                                          size: AppDimensions.fontSizeDefault,
+                                          size: AppDimensions.fontSizeDefault(context),
                                           color: AppColors.white,
                                         ),
                                         children: [
@@ -197,7 +197,7 @@ class _ItemsScreenState extends State<ItemsScreen> {
                                                   '₹ ${itemList[index].margin}',
                                               style: AppStyle.rationaleStyle(
                                                 size: AppDimensions
-                                                    .fontSizeDefault,
+                                                    .fontSizeDefault(context),
                                                 color:
                                                     AppColors.appPrimaryGreen,
                                               ))
@@ -228,17 +228,17 @@ class TopHead extends StatelessWidget {
           Text(
             'Item              ',
             style: AppStyle.rationaleStyle(
-                size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+                size: AppDimensions.fontSizeLarge(context), fontWeight: FontWeight.w600),
           ),
           Text(
             'Retail(₹)',
             style: AppStyle.rationaleStyle(
-                size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+                size: AppDimensions.fontSizeLarge(context), fontWeight: FontWeight.w600),
           ),
           Text(
             'Wholesale(₹)',
             style: AppStyle.rationaleStyle(
-                size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+                size: AppDimensions.fontSizeLarge(context), fontWeight: FontWeight.w600),
           ),
         ],
       ),

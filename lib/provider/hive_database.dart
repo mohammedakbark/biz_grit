@@ -77,6 +77,11 @@ class HiveDatabase with ChangeNotifier {
     itemBox.put(model.id, model);
   }
 
+  cleanItemBx() async {
+    final itemBox = await Hive.openBox<ItemModel>(ConstString.itemDb);
+   await itemBox.clear();
+  }
+
   //----------------Entries-----------
 
   final List<SingleEntryModel> _entryList = [];
@@ -89,6 +94,7 @@ class HiveDatabase with ChangeNotifier {
   }
 
   Future addNewEntry(BuildContext context, SingleEntryModel entryModel) async {
+    await storeTheDate();
     final entryBox =
         await Hive.openBox<SingleEntryModel>(ConstString.dailyEntryDb);
     entryBox.put(entryModel.id, entryModel);
@@ -129,7 +135,7 @@ class HiveDatabase with ChangeNotifier {
 
   final dateFormat = DateFormat('dd-MM-yyyy');
   Future<void> calculateTotlaMargin() async {
-    final now = dateFormat.format(DateTime.now());
+    final now = await getCurrentDate();
 
     _totalSales = 0;
     _totlaMargin = 0;
@@ -141,13 +147,13 @@ class HiveDatabase with ChangeNotifier {
       _totalSales += sales;
       _totlaMargin += margin;
     }
-    log('total margin= ${_totlaMargin}\nTtal sales = ${_totalSales}');
+    // log('total margin= ${_totlaMargin}\nTtal sales = ${_totalSales}');
     _historyModel = HistoryModel(
         totalSales: _totalSales.toString(),
         date: now,
         totalMargin: _totlaMargin.toString());
 
-    log(_historyModel!.date);
+    // log(_historyModel!.date);
   }
 
   Future cleanEntryBx() async {
@@ -156,7 +162,7 @@ class HiveDatabase with ChangeNotifier {
   }
 
   Future resetLastDayData() async {
-    await cleanEntryBx().then((value) {
+    await cleanEntryBx().then((value) async {
       _totalSales = 0;
       _totlaMargin = 0;
       notifyListeners();
@@ -177,16 +183,17 @@ class HiveDatabase with ChangeNotifier {
     final now = dateFormat.format(DateTime.now());
     await calculateTotlaMargin();
     if (_historyModel != null) {
+      log(now.toString() + _historyModel!.date.toString());
       if (now != _historyModel!.date) {
-        print('1');
+        print('true----now ');
         return true;
       } else {
-        print('2');
+        print('false !');
 
         return false;
       }
     } else {
-      print('3');
+      print('false');
 
       return false;
     }
@@ -196,7 +203,8 @@ class HiveDatabase with ChangeNotifier {
     final confirm = await _confirmToAddHistory();
 
     if (confirm) {
-      await HistoryController()
+     if(_historyModel!.date.isNotEmpty){
+       await HistoryController()
           .addToHistory(_historyModel!)
           .then((value) async {
         final historybox =
@@ -204,6 +212,7 @@ class HiveDatabase with ChangeNotifier {
         await historybox.put(_historyModel!.date, _historyModel!);
         resetLastDayData();
       });
+     }
     } else {
       log('-----------May history last day model nullm or history transferd');
     }
@@ -235,8 +244,34 @@ class HiveDatabase with ChangeNotifier {
     }
   }
 
-  cleanHistory() async {
+  cleanHistoryBx() async {
     final historybox = await Hive.openBox<HistoryModel>(ConstString.historyDb);
     historybox.clear();
   }
+
+  //----------------------  Current Date
+  cleanDateBox() async {
+    final dateBox = await Hive.openBox<String>(ConstString.dateDb);
+    await dateBox.clear();
+  }
+
+  storeTheDate() async {
+    await cleanDateBox();
+    String now = dateFormat.format(DateTime.now());
+
+    final dateBox = await Hive.openBox<String>(ConstString.dateDb);
+    await dateBox.put(now, now);
+    log('to day -- ${dateBox.values.first}');
+  }
+
+  Future<String> getCurrentDate() async {
+    final dateBox = await Hive.openBox<String>(ConstString.dateDb);
+
+    String currentDate = dateBox.values.isEmpty ? '' : dateBox.values.first;
+
+    log(currentDate + 'qqq');
+
+    return currentDate;
+  }
+  //---------- ---------------------- -               --
 }

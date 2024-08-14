@@ -32,6 +32,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
       final auth = FirebaseAuth.instance.currentUser;
       // await  FirebaseAuth.instance.signOut();
       if (auth != null) {
+        HiveDatabase().getCurrentDate();
         if (await Provider.of<AuthController>(context, listen: false)
             .checkTheAppPermission(auth.uid)) {
           await Provider.of<HiveDatabase>(context, listen: false)
@@ -65,7 +66,7 @@ class _SpalshScreenState extends State<SpalshScreen> {
                   padding: EdgeInsets.only(top: _val * 100),
                   child: Text.rich(
                       style: AppStyle.rationaleStyle(
-                        size: AppDimensions.fontSizeMaxLarge,
+                        size: AppDimensions.fontSizeMaxLarge(context),
                         letterSpacing: 1,
                         fontWeight: FontWeight.w900,
                       ),

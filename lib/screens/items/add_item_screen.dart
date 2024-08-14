@@ -38,7 +38,7 @@ class AddItemScreen extends StatelessWidget {
           style: AppStyle.rationaleStyle(
               color: AppColors.white,
               fontWeight: FontWeight.w600,
-              size: AppDimensions.fontSizeExtraLarge),
+              size: AppDimensions.fontSizeExtraLarge(context)),
         ),
       ),
       body: ScreenMargin(

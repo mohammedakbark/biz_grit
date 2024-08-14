@@ -9,8 +9,12 @@ import 'package:briz_grit/screens/home/home_screen.dart';
 import 'package:briz_grit/screens/home/items_screen.dart';
 import 'package:briz_grit/screens/home/margin_calc_screen.dart';
 import 'package:briz_grit/screens/items/add_item_screen.dart';
+import 'package:briz_grit/screens/splash_screen.dart';
+import 'package:briz_grit/widgets/custome_button.dart';
+import 'package:briz_grit/widgets/helper_widget.dart';
 import 'package:briz_grit/widgets/route.dart';
 import 'package:briz_grit/widgets/screen_margin.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -59,7 +63,7 @@ class NavigationScreen extends StatelessWidget {
             style: AppStyle.rationaleStyle(
                 color: AppColors.white,
                 fontWeight: FontWeight.w600,
-                size: AppDimensions.fontSizeExtraLarge),
+                size: AppDimensions.fontSizeExtraLarge(context)),
           ),
           leading: const SizedBox(),
           actions: [
@@ -67,14 +71,54 @@ class NavigationScreen extends StatelessWidget {
                 ? Padding(
                     padding: const EdgeInsets.only(
                         right: AppDimensions.paddingSizeSmall),
-                    child: Text(
-                      Provider.of<AuthController>(context, listen: false)
-                              .userData![ConstString.userName] ??
-                          '',
-                      style: AppStyle.rationaleStyle(
-                          color: AppColors.white,
-                          fontWeight: FontWeight.w100,
-                          size: AppDimensions.fontSizeDefault),
+                    child: InkWell(
+                      onTap: () {
+                        showDialog(
+                          context: context,
+                          builder: (context) => AlertDialog(
+                            shadowColor:
+                                AppColors.appPrimaryGreen.withOpacity(.5),
+                            alignment: Alignment.center,
+                            backgroundColor: AppColors.bgColor,
+                            title: Center(
+                              child: Text(
+                                'Log Out',
+                                style: AppStyle.rationaleStyle(),
+                              ),
+                            ),
+                            actionsAlignment: MainAxisAlignment.center,
+                            actions: [
+                              IconButton(
+                                  onPressed: () async {
+                                    final controller =
+                                        Provider.of<HiveDatabase>(context,
+                                            listen: false);
+
+                                    await controller.cleanEntryBx();
+                                    await controller.cleanHistoryBx();
+                                    await controller.cleanItemBx();
+                                    AuthController().logout();
+                                    Navigator.of(context).pushAndRemoveUntil(
+                                        createRoute(const SpalshScreen()),
+                                        (route) => false);
+                                  },
+                                  icon: const Icon(
+                                    Icons.power_settings_new_outlined,
+                                    color: AppColors.red,
+                                  ))
+                            ],
+                          ),
+                        );
+                      },
+                      child: Text(
+                        Provider.of<AuthController>(context, listen: false)
+                                .userData![ConstString.userName] ??
+                            '',
+                        style: AppStyle.rationaleStyle(
+                            color: AppColors.white,
+                            fontWeight: FontWeight.w100,
+                            size: AppDimensions.fontSizeDefault(context)),
+                      ),
                     ),
                   )
                 : const SizedBox(),
@@ -110,7 +154,7 @@ class NavigationScreen extends StatelessWidget {
                   style: AppStyle.rationaleStyle(
                       enableShadow: true,
                       fontWeight: FontWeight.bold,
-                      size: AppDimensions.fontSizeExtraLarge),
+                      size: AppDimensions.fontSizeExtraLarge(context)),
                 );
               })
             ],

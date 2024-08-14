@@ -42,7 +42,7 @@ class LoginScreen extends StatelessWidget {
               children: [
                 Text('Login',
                     style: AppStyle.rationaleStyle(
-                      size: AppDimensions.fontSizeOverLarge,
+                      size: AppDimensions.fontSizeOverLarge(context),
                     )),
                 customeSpacer(context, height: .03),
                 cutomTextField('', 'User Name', _userNameController, (value) {
@@ -71,7 +71,7 @@ class LoginScreen extends StatelessWidget {
                     child: customButton('Login', () {
                       if (_formKey.currentState!.validate()) {
                         AuthController().loginUser(
-                          context,
+                            context,
                             _userNameController.text.trim(),
                             _passwordController.text.trim());
                       }

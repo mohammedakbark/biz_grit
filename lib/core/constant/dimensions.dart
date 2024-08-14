@@ -1,3 +1,4 @@
+import 'package:briz_grit/core/utils/responsive_text_size.dart';
 import 'package:flutter/material.dart';
 
 class AppDimensions {
@@ -9,13 +10,22 @@ class AppDimensions {
     return MediaQuery.of(context).size.height;
   }
 
-  static const double fontSizeExtraSmall = 14.0;
-  static const double fontSizeSmall = 16.0;
-  static const double fontSizeDefault = 18.0;
-  static const double fontSizeLarge = 20.0;
-  static const double fontSizeExtraLarge = 28.0;
-  static const double fontSizeOverLarge = 34.0;
-  static const double fontSizeMaxLarge = 45.0;
+  static double fontSizeExtraSmall(
+    BuildContext context,
+  ) =>
+      responsiveTextSize(context, .02); //14.0;
+  static double fontSizeSmall(BuildContext context) =>
+      responsiveTextSize(context, .04); //16.0;
+  static double fontSizeDefault(BuildContext context) =>
+      responsiveTextSize(context, .05); // 18.0;
+  static double fontSizeLarge(BuildContext context) =>
+      responsiveTextSize(context, .06); //20.0;
+  static double fontSizeExtraLarge(BuildContext context) =>
+      responsiveTextSize(context, .065); //28.0;
+  static double fontSizeOverLarge(BuildContext context) =>
+      responsiveTextSize(context, .08); // 34.0;
+  static double fontSizeMaxLarge(BuildContext context) =>
+      responsiveTextSize(context, .14); //45.0;
 
   static const double paddingSizeExtraSmall = 5.0;
   static const double paddingSizeSmall = 10.0;

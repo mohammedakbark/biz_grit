@@ -1,9 +1,11 @@
 import 'package:briz_grit/core/constant/color.dart';
 import 'package:briz_grit/core/constant/dimensions.dart';
 import 'package:briz_grit/core/constant/style.dart';
+import 'package:briz_grit/core/utils/responsive_text_size.dart';
 import 'package:briz_grit/provider/hive_database.dart';
 import 'package:briz_grit/widgets/helper_widget.dart';
 import 'package:briz_grit/widgets/screen_margin.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 
@@ -18,31 +20,32 @@ class HomeScreen extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Container(
-          constraints: BoxConstraints(),
-          width: AppDimensions.w(context),
-          height: AppDimensions.h(context) * .45,
+        AspectRatio(
+          aspectRatio: responsiveAspectRatio(context, 1, .47),
           child: Stack(
             fit: StackFit.loose,
             children: [
-              Container(
-                constraints: BoxConstraints(),
-                width: AppDimensions.w(context),
-                height: AppDimensions.h(context) * .2,
-                decoration: const BoxDecoration(
-                    borderRadius: BorderRadius.only(
-                        bottomLeft: Radius.elliptical(100, 50),
-                        bottomRight: Radius.elliptical(100, 50)),
-                    color: AppColors.appPrimaryGreen),
-                child: SafeArea(
-                  child: ScreenMargin(
-                    child: Text(
-                      'Daily based Sales &\nMargin',
-                      style: AppStyle.rationaleStyle(
-                          letterSpacing: 1,
-                          size: AppDimensions.fontSizeExtraLarge,
-                          fontWeight: FontWeight.w900,
-                          color: AppColors.white),
+              AspectRatio(
+                aspectRatio: responsiveAspectRatio(context, 1, .2),
+                child: Container(
+                  constraints: const BoxConstraints(),
+                  width: AppDimensions.w(context),
+                  height: AppDimensions.h(context) * .2,
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.only(
+                          bottomLeft: Radius.elliptical(100, 50),
+                          bottomRight: Radius.elliptical(100, 50)),
+                      color: AppColors.appPrimaryGreen),
+                  child: SafeArea(
+                    child: ScreenMargin(
+                      child: Text(
+                        'Daily based Sales &\nMargin',
+                        style: AppStyle.rationaleStyle(
+                            letterSpacing: 1,
+                            size: AppDimensions.fontSizeExtraLarge(context),
+                            fontWeight: FontWeight.w900,
+                            color: AppColors.white),
+                      ),
                     ),
                   ),
                 ),
@@ -51,135 +54,138 @@ class HomeScreen extends StatelessWidget {
                 left: AppDimensions.w(context) * .04,
                 right: AppDimensions.w(context) * .04,
                 bottom: 0,
-                child: Container(
-                  constraints: const BoxConstraints(),
-                  padding:
-                      const EdgeInsets.all(AppDimensions.paddingSizeExtraLarge),
-                  // height: AppDimensions.h(context) * .36,
-                  width: AppDimensions.w(context),
-                  decoration: BoxDecoration(
-                      boxShadow: [appShadow],
-                      borderRadius: const BorderRadius.all(
-                          Radius.circular(AppDimensions.radiusSizeExtraLarge)),
-                      color: AppColors.white),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisSize: MainAxisSize.max,
-                    children: [
-                      Row(
-                        children: [
-                          const Spacer(),
-                          Builder(builder: (context) {
-                            return Text(
-                              'Reset',
-                              style: AppStyle.robotoStyle(
-                                  color: AppColors.lightRed,
-                                  size: AppDimensions.fontSizeSmall,
-                                  fontWeight: FontWeight.w600),
-                            );
-                          }),
-                          customeSpacer(context, width: .02),
-                          Consumer<HiveDatabase>(
-                              builder: (context, controller, _) {
-                            return InkWell(
-                              onTap: () async {
-                                controller.resetLastDayData();
-                              },
-                              child: const Icon(
-                                color: AppColors.lightRed,
-                                SolarIconsOutline.refreshCircle,
-                              ),
-                            );
-                          })
-                        ],
-                      ),
-                      Center(
-                        child: Text(
-                          'TODAY',
-                          style: AppStyle.rationaleStyle(
-                              color: AppColors.appPrimaryGreen,
-                              size: AppDimensions.fontSizeMaxLarge,
-                              fontWeight: FontWeight.w900),
-                        ),
-                      ),
-                      const Divider(
-                        color: AppColors.appPrimaryGreen,
-                      ),
-                      Consumer<HiveDatabase>(
-                          builder: (context, hiveController, _) {
-                        return FutureBuilder(
-                            future: hiveController.calculateTotlaMargin(),
-                            builder: (context, snapshot) {
-                              if (snapshot.connectionState ==
-                                  ConnectionState.waiting) {
-                                return const Center(
-                                  child: Text('calculating...'),
-                                );
-                              }
-                              return Column(
-                                children: [
-                                  customeSpacer(context, height: .01),
-                                  SizedBox(
-                                    width: AppDimensions.w(context),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        Text(
-                                          'Margin',
-                                          style: AppStyle.rationaleStyle(
-                                              color: AppColors.green
-                                                  .withOpacity(.3),
-                                              size: AppDimensions
-                                                  .fontSizeOverLarge,
-                                              fontWeight: FontWeight.w900),
-                                        ),
-                                        Text(
-                                          '₹ ${hiveController.totalMargin}',
-                                          style: AppStyle.rationaleStyle(
-                                              enableShadow: true,
-                                              color: AppColors.green,
-                                              size: AppDimensions
-                                                  .fontSizeOverLarge,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  ),
-                                  SizedBox(
-                                    width: AppDimensions.w(context),
-                                    child: Column(
-                                      mainAxisSize: MainAxisSize.max,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.end,
-                                      children: [
-                                        Text(
-                                          'Sales',
-                                          style: AppStyle.rationaleStyle(
-                                              color: AppColors.lightRed
-                                                  .withOpacity(.5),
-                                              size: AppDimensions
-                                                  .fontSizeOverLarge,
-                                              fontWeight: FontWeight.w900),
-                                        ),
-                                        Text(
-                                          '₹ ${hiveController.totalSales}',
-                                          style: AppStyle.rationaleStyle(
-                                              enableShadow: true,
-                                              color: AppColors.red,
-                                              size: AppDimensions
-                                                  .fontSizeOverLarge,
-                                              fontWeight: FontWeight.bold),
-                                        ),
-                                      ],
-                                    ),
-                                  )
-                                ],
+                child: AspectRatio(
+                  aspectRatio: responsiveAspectRatio(context, 1, .408),
+                  child: Container(
+                    constraints: const BoxConstraints(),
+                    padding: const EdgeInsets.all(
+                        AppDimensions.paddingSizeExtraLarge),
+                    height: AppDimensions.h(context) * .36,
+                    width: AppDimensions.w(context),
+                    decoration: BoxDecoration(
+                        boxShadow: [appShadow],
+                        borderRadius: const BorderRadius.all(Radius.circular(
+                            AppDimensions.radiusSizeExtraLarge)),
+                        color: AppColors.white),
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisSize: MainAxisSize.max,
+                      children: [
+                        Row(
+                          children: [
+                            const Spacer(),
+                            Builder(builder: (context) {
+                              return Text(
+                                'Reset',
+                                style: AppStyle.robotoStyle(
+                                    color: AppColors.lightRed,
+                                    size: AppDimensions.fontSizeSmall(context),
+                                    fontWeight: FontWeight.w600),
                               );
-                            });
-                      })
-                    ],
+                            }),
+                            customeSpacer(context, width: .02),
+                            Consumer<HiveDatabase>(
+                                builder: (context, controller, _) {
+                              return InkWell(
+                                onTap: () async {
+                                  controller.resetLastDayData();
+                                },
+                                child: const Icon(
+                                  color: AppColors.lightRed,
+                                  SolarIconsOutline.refreshCircle,
+                                ),
+                              );
+                            })
+                          ],
+                        ),
+                        Center(
+                          child: Text(
+                            'TODAY',
+                            style: AppStyle.rationaleStyle(
+                                color: AppColors.appPrimaryGreen,
+                                size: AppDimensions.fontSizeMaxLarge(context),
+                                fontWeight: FontWeight.w900),
+                          ),
+                        ),
+                        const Divider(
+                          color: AppColors.appPrimaryGreen,
+                        ),
+                        Consumer<HiveDatabase>(
+                            builder: (context, hiveController, _) {
+                          return FutureBuilder(
+                              future: hiveController.calculateTotlaMargin(),
+                              builder: (context, snapshot) {
+                                if (snapshot.connectionState ==
+                                    ConnectionState.waiting) {
+                                  return const Center(
+                                    child: Text('calculating...'),
+                                  );
+                                }
+                                return Column(
+                                  children: [
+                                    customeSpacer(context, height: .01),
+                                    SizedBox(
+                                      width: AppDimensions.w(context),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            'Margin',
+                                            style: AppStyle.rationaleStyle(
+                                                color: AppColors.green
+                                                    .withOpacity(.3),
+                                                size: AppDimensions
+                                                    .fontSizeOverLarge(context),
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                          Text(
+                                            '₹ ${hiveController.totalMargin}',
+                                            style: AppStyle.rationaleStyle(
+                                                enableShadow: true,
+                                                color: AppColors.green,
+                                                size: AppDimensions
+                                                    .fontSizeOverLarge(context),
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    SizedBox(
+                                      width: AppDimensions.w(context),
+                                      child: Column(
+                                        mainAxisSize: MainAxisSize.max,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.end,
+                                        children: [
+                                          Text(
+                                            'Sales',
+                                            style: AppStyle.rationaleStyle(
+                                                color: AppColors.lightRed
+                                                    .withOpacity(.5),
+                                                size: AppDimensions
+                                                    .fontSizeOverLarge(context),
+                                                fontWeight: FontWeight.w900),
+                                          ),
+                                          Text(
+                                            '₹ ${hiveController.totalSales}',
+                                            style: AppStyle.rationaleStyle(
+                                                enableShadow: true,
+                                                color: AppColors.red,
+                                                size: AppDimensions
+                                                    .fontSizeOverLarge(context),
+                                                fontWeight: FontWeight.bold),
+                                          ),
+                                        ],
+                                      ),
+                                    )
+                                  ],
+                                );
+                              });
+                        })
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -195,7 +201,7 @@ class HomeScreen extends StatelessWidget {
                 Text(
                   'History',
                   style: AppStyle.rationaleStyle(
-                      size: AppDimensions.fontSizeExtraLarge,
+                      size: AppDimensions.fontSizeExtraLarge(context),
                       fontWeight: FontWeight.bold),
                 ),
                 customeSpacer(context, height: .02),
@@ -248,21 +254,21 @@ class HistoryList extends StatelessWidget {
                             Text(
                               historyData[index].date,
                               style: AppStyle.rationaleStyle(
-                                size: AppDimensions.fontSizeDefault,
+                                size: AppDimensions.fontSizeDefault(context),
                                 color: AppColors.bgColor,
                               ),
                             ),
                             Text(
                               historyData[index].totalSales,
                               style: AppStyle.rationaleStyle(
-                                size: AppDimensions.fontSizeDefault,
+                                size: AppDimensions.fontSizeDefault(context),
                                 color: AppColors.bgColor,
                               ),
                             ),
                             Text(
                               historyData[index].totalMargin,
                               style: AppStyle.rationaleStyle(
-                                size: AppDimensions.fontSizeDefault,
+                                size: AppDimensions.fontSizeDefault(context),
                                 color: AppColors.appPrimaryGreen,
                               ),
                             ),
@@ -286,17 +292,20 @@ class HistoryHead extends StatelessWidget {
         Text(
           'Date              ',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
         Text(
           'Sales(₹)',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
         Text(
           'Margin(₹)',
           style: AppStyle.rationaleStyle(
-              size: AppDimensions.fontSizeLarge, fontWeight: FontWeight.w600),
+              size: AppDimensions.fontSizeLarge(context),
+              fontWeight: FontWeight.w600),
         ),
       ],
     );

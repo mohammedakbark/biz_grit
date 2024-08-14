@@ -1,5 +1,6 @@
 import 'package:briz_grit/core/constant/color.dart';
 import 'package:briz_grit/core/model/item_model.dart';
+import 'package:briz_grit/core/model/now_model.dart';
 import 'package:briz_grit/core/model/single_entry_model.dart';
 import 'package:briz_grit/core/model/history_model.dart';
 import 'package:briz_grit/firebase_options.dart';
@@ -25,6 +26,9 @@ void main() async {
   }
   if (!Hive.isAdapterRegistered(HistoryModelAdapter().typeId)) {
     Hive.registerAdapter(HistoryModelAdapter());
+  }
+  if (!Hive.isAdapterRegistered(NowModelAdapter().typeId)) {
+    Hive.registerAdapter(NowModelAdapter());
   }
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,

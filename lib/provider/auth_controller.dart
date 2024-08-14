@@ -64,15 +64,15 @@ class AuthController with ChangeNotifier {
         if (userData.exists) {
           final snapshot = await checkTheAppPermission(user.user!.uid);
           if (snapshot) {
-            Provider.of<HiveDatabase>(context, listen: false).takeHistoryFormCloud(context).then((value){
-               Navigator.of(context).pushAndRemoveUntil(
-              createRoute(SpalshScreen()),
-              (route) => false,
-            );
-            // showCustomeSnackBar(context, "Login Successful !.", false);
-
+            Provider.of<HiveDatabase>(context, listen: false)
+                .takeHistoryFormCloud(context)
+                .then((value) {
+              Navigator.of(context).pushAndRemoveUntil(
+                createRoute(SpalshScreen()),
+                (route) => false,
+              );
+              // showCustomeSnackBar(context, "Login Successful !.", false);
             });
-           
           } else {
             showCustomeSnackBar(
                 context, "Your account is not activated !.", true);
@@ -138,5 +138,8 @@ class AuthController with ChangeNotifier {
     }
   }
 
+  void logout() async {
+   await auth.signOut();
+  }
   // --------------History Data ------------
 }
